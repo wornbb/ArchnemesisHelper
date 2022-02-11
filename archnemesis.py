@@ -139,7 +139,7 @@ class ArchModOpt():
         header = ['usage', 'count'] * len(usage)
         details = list(chain.from_iterable((u[0], usage.count(u)) for u in usage))
         print(f.format('mod', 'total count', *header))
-        print(f.format(mod, sum(details[::2]), *details))
+        print(f.format(mod, sum(details[1::2]), *details))
     
     def check_mod(self, word):
         if word not in self.basic_mods:
