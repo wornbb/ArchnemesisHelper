@@ -142,8 +142,12 @@ class ArchModOpt():
         print(f.format(mod, sum(details[1::2]), *details))
     
     def check_mod(self, word):
-        if word not in self.basic_mods:
+        if word in self.recipe_mods:
             print(word, ": ", self.recipe_mods[word])
+        elif word in self.chase:
+            print(word, ": ", self.chase[word])
+        else:
+            print("Cannot find mod/chase {}".format(word))
 
 class CmdManager():
     def __init__(self, optimizer):
@@ -164,7 +168,7 @@ class CmdManager():
         return None
 
     def match_word(self, word):
-        mods = opt.basic_mods + list(opt.recipe_mods.keys())
+        mods = opt.basic_mods + list(opt.recipe_mods.keys()) + list(opt.chase.keys())
         matches = []
         for m in mods:
             if word in m:
@@ -174,8 +178,9 @@ class CmdManager():
     def start(self):
         while self.run:
             i = input("How can I help you? (one mod at a time)\n").split()
-            if 'end' in i:
+            if not i or 'end' in i:
                 self.run = False
+                print("exiting")
             else:
                 ctx = self.prep_input(i)
                 if ctx:
