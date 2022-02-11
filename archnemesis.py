@@ -178,9 +178,12 @@ class CmdManager():
                 self.run = False
             else:
                 ctx = self.prep_input(i)
-                matched_mods = self.match_word(ctx['mod'].lower())
-                for mod in matched_mods:
-                    ctx['exec'](mod)
+                if ctx:
+                    matched_mods = self.match_word(ctx['mod'].lower())
+                    for mod in matched_mods:
+                        ctx['exec'](mod)
+                else:
+                    print("Command \"{}\" is not found".format(i[0]))
 
 
 if __name__ == '__main__':
